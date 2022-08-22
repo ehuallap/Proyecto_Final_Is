@@ -1,8 +1,6 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-from re import S
-
 
 class Ponente:
     def __init__(self, id, name, email, password):
