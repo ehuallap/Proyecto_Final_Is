@@ -177,3 +177,93 @@ A continuación se muestra un ejemplo de cada practica:
             {'_id': id}
             )
 ```
+# Principios SOLID aplicados
+En este proyecto se aplicaron los siguientes principios SOLID:
+* Single Responsability Principle (SRP)
+* Liskov Substitution Principle (LSP)
+* Dependency Inversion Principle (DIP)
+## SRP
+La clase EventoRepository debe tener una unica responsabilidad, es decir, debe tener un unico metodo para cada operacion que se realice sobre la base de datos.
+Entonces, ello se logra con el siguiente código:
+```python
+    # Creacion de la clase EventoRepository
+    class EventoRepository:
+        
+        # Constructor de la conexion a la base de datos
+        def __init__(self, db):
+            self.db = db
+        
+        # Metodo para obtener todos los eventos
+        def getEventos(self):
+            return self.db.eventos.find()
+        
+        # Metodo para obtener un evento por su id
+        def getEvento(self, id):
+            return self.db.eventos.find_one({'_id': id})
+        
+        # Metodo para agregar un evento
+        def addEvento(self, evento):
+            return self.db.eventos.insert_one(evento)
+        
+        # Metodo para actualizar evento por su id
+        def updateEvento(self, id, evento):
+            return self.db.eventos.update_one({'_id': id}, {'$set': evento})
+        
+        # Metodo para obtener los eventos por su nombre
+        def deleteEvento(self, id):
+            return self.db.eventos.delete_one({'_id': id})
+```
+## OCP
+La clase Persona actua como clase padre de la clase Usuario, entonces la clase Usuario puede operar como su clase padre sin necesidad de modificarla.
+Entonces, ello se logra con el siguiente código:
+```python
+    # Creacion de la clase Persona
+    class Persona:
+        
+        # Constructor de la clase
+        def __init__(self, id, name, email, password):
+            self.id = id
+            self.name = name
+            self.email = email
+            self.password = password
+        
+        # Metodo para representar el objeto en un diccionario
+        def __repr__(self):
+            return "<Persona('%s','%s','%s','%s')>" % (self.id, self.name, self.email, self.password)
+        
+        # Metodo para representar el objeto en una tupla
+        def __str__(self):
+            return "Persona [id=%s, name=%s, email=%s, password=%s]" % (self.id, self.name, self.email, self.password)
+        
+        # Metodo para verificar administradores repetidos
+        def __eq__(self, other):
+            return self.id == other.id
+    # Creacion de la clase Usuario
+    class Usuario(Persona):
+        # Metodo para construir el objeto usando el constructor de la clase padre
+        def __init__(self, id, name, email, password):
+            super(Usuario, self).__init__(name, email, password)
+            self.id = id
+        # Sobreescritura del metodo __repr__ para representar el objeto en un diccionario
+        def __repr__(self):
+            return "<Usuario('%s','%s','%s','%s')>" % (self.id, self.name, self.email, self.password)
+```
+## LSP
+La clase UsuarioService en lugar de registrar los datos del usuario para registrar en un evento, recibe al usuario como parametro de entrada e inyecta una dependencia dentro
+de dicha función y construye una instancia mediante una consulta a la base de datos para luego registrar el usuario en el evento.
+Entonces, ello se logra con el siguiente código:
+
+```python
+    from ..Entities.Usuario import Usuario
+    class UsuarioService:
+        def __init__(self):
+            pass
+        def registrarseEnEvento(self, Usuario, Evento):
+            usuario_actual = Usuario.getUsuario(self, Usuario.getId())
+            if usuario_actual is not None:
+                usuario_actual.setEventos(Evento)
+                Usuario.updateUsuario(self, Usuario.getId(), usuario_actual)
+                return True
+            else:
+                return False
+```

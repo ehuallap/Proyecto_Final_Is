@@ -1,7 +1,6 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-
 class Ponente:
     def __init__(self, id, name, email, password):
         self.id = id

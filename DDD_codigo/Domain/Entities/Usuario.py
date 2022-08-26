@@ -1,12 +1,10 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
-
-class Usuario:
+from __init__ import Persona
+class Usuario(Persona):
     def __init__(self, id, name, email, password):
+        super(Usuario, self).__init__(name, email, password)
         self.id = id
-        self.name = name
-        self.email = email
-        self.password = password
     def __repr__(self):
         return "<Usuario('%s','%s','%s','%s')>" % (self.id, self.name, self.email, self.password)
     def __str__(self):
