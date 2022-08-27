@@ -1,5 +1,5 @@
-# Proyecto TheEvenet
-## Propósito del proyecto
+# Proyecto final de publicacion de Eventos
+## Propósito 
 Este proyecto tiene todas las referencias de las practicas aprendidas en el trayecto del curso, el propósito del curso es elicitar, especificar las funcionalidades de cada fase para la construccion de este trabajo, estas fases fueron; analizar los requisitos de software y definir las especificaciones funcionales y no funcionales para el desarrollo de un sistema web que gestiona distintintos eventos y ponencias. 
 Este sistema será utilizado por personal de la Escuela de Ciencia de la Computación e interesados del area.
 
