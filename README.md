@@ -30,8 +30,6 @@ En el presente proyecto usamos HTML, CSS , Bootstrap; el gestor de Base de Datos
    <p align="center">
     <img src="Insertar la ruta de imagen de prueba">
   </p>
-- Registrar inscripciones para concursos: El sistema permite a un usuario inscribirse en un concurso. Para ello se requiere que se haya iniciado sesión.
-- Buscar por filtro: El sistema permite al usuario buscar un evento por título o etiquetas.
 
 ## Estilos de Programación aplicados
 * Pipeline Style: 
