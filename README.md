@@ -257,15 +257,14 @@ class LoginController extends Controller
 * Pipeline Style: 
 Esta enfocado en funciones que tienen un input y un output
 
-* 	Código mantenible: 
-El sistema está diseñado de forma que pueda ser actualizado cada cierto tiempo, con independencia entre sus funciones y clases, logrando así el programa perdure.
+* 	Cookbook Style: 
+El sistema está diseñado de forma que pueda llamar las funciones secuencialmente.
  
-* Composición de funciones:
-  Esta sección muestra como se conectan las llamadas a funciones. Se utiliza un estilo de paso de continuación, donde a cada función se le da también la siguiente función que debe ser llamada.
-  <p align="center">
-      <img src="Insertar la ruta de imagen de prueba" >
-      <img src="Insertar la ruta de imagen de prueba" >
-      </p>
+* Kingdom of Nouns Style: se crean clases para acceder a los atributos de las clases
+  Esta sección muestra como se crean clases para acceder a los atributos de las clases. 
+
+*Persistent Tables Style:
+   Este Estilo esta dedicado a la información que se almacenan en bases de datos para mantener persistencia sobre los mismos.
 
 
 ## Principios SOLID aplicados
