@@ -306,7 +306,9 @@ def insert(self):
 ```
 * Organización y correcto nombramiento de las carpetas
 Se distribuyen las carpetas y archivos dentro de la estructura DDD (Domain Driven Design)
-IMAGENNNNNN
+<p align="center">
+    <img src="Images/Organizacion.png" width="20%">
+  </p>
 
 * Nombres significativos, se utilizan variables con nombres significativos
 ```python
