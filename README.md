@@ -398,9 +398,134 @@ class Event_repository(DbConnection.Model, Event):
 ## Practicas/Estandares/Convenciones
 * Comentarios autoexplicativos: 
    Se comentan las líneas de código importante para entender el funcionamiento.
+```python
+# Dependencias de Flask y flask_cors
+from flask import jsonify
+from flask import request
+from flask import abort
+from flask import Blueprint
+from flask_cors import cross_origin
+
+# Se importa la clase del repositorio de Administrador
+from infrastructure.repository.admin_repository import Administrator_repository
+
+# Se registra el blueprint del Administrador, principio SOLID de OPEN CLOSED
+admin_blueprint = Blueprint('admin_blueprint', name)
+admin = Administrator_repository()
+
+# Se crea la ruta para crear un Administrador, el metodo POST
+@admin_blueprint.route('/admin', methods=['POST'])
+@cross_origin()
+def create_admin():
+    # Se verifica que el request sea un JSON, si no es asi, se aborta con un 400 (PROGRAMACION DEFENSIVA)
+    if not request.json:
+        abort(400)
+    # Se crea un objeto de la clase Administrador, con los datos del request
+    admin = Administrator_repository(request.json['id'], request.json['name'], request.json['email'], request.json['password'])
+    # Se inserta el objeto en la base de datos
+    admin = admin.insert()
+    # Se retorna el objeto creado
+    return jsonify(admin)
+
+# Se crea la ruta para obtener todos los Administradores, el metodo GET
+@admin_blueprint.route('/admin', methods=['GET'])
+@cross_origin()
+def get_admins():
+    # Se obtienen todos los Administradores de la base de datos
+    admins = admin.get_all()
+    # Se retornan los Administradores
+    return jsonify(admins)
+```
 * Indentación consistente:
    Se respeta los espacios de indentación y se ordena para un facil entendimiento del usuario
 
+```python
+# Asigna el valor de la fecha y hora del evento
+    def setDateTime(self, date_time):
+        self.date_time = date_time
+
+    # Asigna el valor de la plataforma del evento
+    def setPlatform(self, platform):
+        self.platform = platform
+
+    # Asigna el valor del link de acceso al evento
+    def setAccessLink(self, access_link):
+        self.access_link = access_link
+
+    # Asigna el valor del ID del administrador del evento
+    def setIdAdministrator(self, id_administrator):
+        self.id_administrator = id_administrator
+
+    # Retorno un diccionario con los datos del evento, para convertirlo a JSON
+    def format(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'theme': self.theme,
+            'description': self.description,
+            'date_time': self.date_time,
+            'platform': self.platform,
+            'access_link': self.access_link,
+            'id_administrator': self.id_administrator
+        }
+```
+* Esquema consistente de Nombramiento:
+Se nombran las variables según el formato impuesto por el lenguaje de programacion
+```python
+# Creacion de la clase Event
+class Event:
+
+    # Constructor de la clase
+    def init(self, id=0, title="", theme="", description="", date_time="", platform="", access_link="", id_administrator=0):
+        self.id = id
+        self.title = title
+        self.theme = theme
+        self.description = description
+        self.date_time = date_time
+        self.platform = platform
+        self.access_link = access_link
+        self.id_administrator = id_administrator
+
+    # Retorna el valor del id del evento
+    def getId(self):
+        return self.id
+
+    # Retorna el valor del titulo del evento
+    def getTitle(self):
+        return self.title
+```
+* Evitar el anidamiento profundo:
+Se utilizan funciones compactas que se combinan con la programación defensiva para hacer código facil de leer y consistente 
+```python
+def insert(self):
+        try:
+            DbConnection.session.add(self)
+            DbConnection.session.commit()
+        except Exception as e:
+            print(e)
+            DbConnection.session.rollback()
+            return False
+        return True
+
+    def update(self):
+        try:
+            DbConnection.session.commit()
+        except Exception as e:
+            print(e)
+            DbConnection.session.rollback()
+            return False
+        return True
+
+    def delete(self):
+        try:
+            DbConnection.session.delete(self)
+            DbConnection.session.commit()
+        except Exception as e:
+            print(e)
+            DbConnection.session.rollback()
+            return False
+        return True
+```
 ## Principios SOLID aplicados
 * Single-responsability : 
   El principio de responsabilidad única ( SRP ) es un principio de programación de computadoras que establece que cada módulo , clase o función en un programa de computadora debe   tener responsabilidad sobre una sola parte de la funcionalidad de ese programa , y debe encapsular esa parte. Todo eso de la función módulo, clase o servicios deben estar alineados estrechamente con esa responsabilidad.
