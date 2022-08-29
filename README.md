@@ -285,13 +285,116 @@ class Administrator_repository(DbConnection.Model, Administrator):
 ```
 * 	Cookbook Style: 
 El sistema está diseñado de forma que pueda llamar las funciones secuencialmente.
+```python
+# Se importa Flask
+from flask import Flask
+
+import sys
+from pathlib import Path
+
+# Se importa el archivo de configuracion para el path
+file = Path(file).resolve()
+package_root = file.parents[1]
+sys.path.append(str(package_root))
+
+# se importa la conexion a la base de datos y los controladores de admin, event, participant, registered, speaker
+from infrastructure.repository.db_connection import setup_db
+from controllers.admin_controller import admin_blueprint
+from controllers.event_controller import event_blueprint
+from controllers.participant_controller import participant_blueprint
+from controllers.registered_controller import registered_blueprint
+from controllers.speaker_controller import speaker_blueprint
+
+# Funcion principal para iniciar la aplicacion
+def create_app():
+    # Se crea la aplicacion Flask
+    app = Flask(name)
+    # Se registran los blueprints de la aplicacion (PARTE DEL PRINCIPIO SOLID OPEN CLOSED)
+    app.register_blueprint(admin_blueprint)
+    app.register_blueprint(event_blueprint)
+    app.register_blueprint(participant_blueprint)
+    app.register_blueprint(registered_blueprint)
+    app.register_blueprint(speaker_blueprint)
+    setup_db(app)
+    return app
+```
  
 * Kingdom of Nouns Style: se crean clases para acceder a los atributos de las clases
   Esta sección muestra como se crean clases para acceder a los atributos de las clases. 
+```python
+# Creacion de la clase RegistredPerson
+class Registered_person:
+    # Constructor de la clase
+    def init(self, id, name, email, password):
+        self.id = id
+        self.name = name
+        self.email = email
+        self.password = password
 
+    # Metodo para obtener el id de la persona (ENCAPSULAMIENTO)
+    def getId(self):
+        return self.id
+
+    # Metodo para obtener el nombre de la persona (ENCAPSULAMIENTO)
+    def getName(self):
+        return self.name
+
+    # Metodo para obtener el email de la persona (ENCAPSULAMIENTO)
+    def getEmail(self):
+        return self.email
+
+    # Metodo para obtener la contraseña de la persona (ENCAPSULAMIENTO)
+    def getPassword(self):
+        return self.password
+
+    # Metodo para asignar el id de la persona (ENCAPSULAMIENTO)
+    def setId(self, id):
+        self.id = id
+
+    # Metodo para asignar el nombre de la persona (ENCAPSULAMIENTO)
+    def setName(self, name):
+        self.name = name
+
+    # Metodo para asignar el email de la persona (ENCAPSULAMIENTO)
+    def setEmail(self, email):
+        self.email = email
+```
 * Persistent Tables Style:
    Este Estilo esta dedicado a la información que se almacenan en bases de datos para mantener persistencia sobre los mismos.
+```python
+class Event_repository(DbConnection.Model, Event):
+    tablename = 'event'
+    id = DbConnection.Column(DbConnection.Integer, primary_key=True)
+    title = DbConnection.Column(DbConnection.String(50), nullable=False)
+    theme = DbConnection.Column(DbConnection.String(100), nullable=False)
+    description = DbConnection.Column(DbConnection.String(100), nullable=False)
+    date_time = DbConnection.Column(DbConnection.DateTime, nullable=False)
+    platform = DbConnection.Column(DbConnection.String(20), nullable=False)
+    access_link = DbConnection.Column(DbConnection.String(50), nullable=False)
+    administrator_id = DbConnection.Column(DbConnection.Integer, nullable=False)
 
+    def init(self, id=0, title="", theme="", description="", date_time="", platform="", access_link="", administrator_id=0):
+        Event.init(self, id, title, theme, description, date_time, platform, access_link, administrator_id)
+
+    def insert(self):
+        try:
+            DbConnection.session.add(self)
+            DbConnection.session.commit()
+        except Exception as e:
+            print(e)
+            DbConnection.session.rollback()
+            return False
+        return True
+
+    def update(self):
+        try:
+            DbConnection.session.commit()
+        except Exception as e:
+            print(e)
+            DbConnection.session.rollback()
+            return False
+        return True
+```
 ## Practicas/Estandares/Convenciones
 * Comentarios autoexplicativos: 
    Se comentan las líneas de código importante para entender el funcionamiento.
