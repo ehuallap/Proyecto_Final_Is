@@ -9,6 +9,9 @@ En el presente proyecto usamos HTML, CSS , Bootstrap; el gestor de Base de Datos
 
 ## Funcionalidades
 - Mostrar resumen general: El sistema debe mostrar información general sobre eventos de la Semana de la Computación, así como también algunos ponentes.
+  <p align="center">
+    <img src="Images/D_1.jpeg" width="25%">
+  </p>
 
 - Inicio de sesión de usuario: los usuarios deberán identificarse para poder inscribirse a los concursos organizados por la escuela.
    
@@ -16,20 +19,13 @@ En el presente proyecto usamos HTML, CSS , Bootstrap; el gestor de Base de Datos
    
 - Visualizar evento: El sistema permite a los usuarios en general tener acceso a los eventos. No es necesario que se inicie sesión.
   - Mostrar información general: Se muestra el título, información del ponente, tema, fecha, hora, lugar o link del evento.
-  <p align="center">
-    <img src="Insertar la ruta de imagen de prueba">
-  </p>
+ 
 - Gestionar eventos: 
   - Publicar evento: El sistema permite al administrador crear un evento, dependiendo el tipo de evento, el sistema pedirá que ingresar la información general del evento : 
   - Presentación: Ingresar un título, nombre del ponente, tema, descripción,  fecha, hora, lugar o link del evento.
   - Editar Evento: Solo el administrador puede editar la información de un evento.  
-     <p align="center">
-    <img src="Images/D_1.jpeg" width="25%">
-  </p>
+  
   - Eliminar Evento:  Solo el administrador puede eliminar un evento.
-   <p align="center">
-    <img src="Insertar la ruta de imagen de prueba">
-  </p>
 
 ## Estilos de Programación aplicados
 * Pipeline Style: 
@@ -467,57 +463,24 @@ class Participant(Registered_person):
         self.ciclo = ciclo
 ```
 ## Conceptos DDD aplicados
-* Modules:
+
+La estructura DDD se puede ver reflejado en la distribución de las carpetas y el modo en el que las clases interactuan entre si.
+
+* En la parte de Domain, estamos declarando las clases que servirán como modelos para los metodos de get, set y format:
  
-  Cada parte del proyecto tiene un dominio que aísla los códigos formados por módulos de clases relacionadas con una funcionalidad de la aplicación.
+   <p align="center">
+    <img src="Images/D_1.jpeg" width="20%">
+  </p>
+
+* En la parte de infraestructura se crea el esquema de la base de datos y las conexiones de cada Entidad a la base de datos: 
 
    <p align="center">
-    <img src="Insertar la ruta de imagen de prueba" >
-      </p>
-
-* Entities: 
-
-  Existen diferentes entidades en el Sistema que desarrollamos, entre ellas podríamos mencionar las entidades Ponente, Participante y Evento, ya que son objeto del dominio que  mantienen un estado y comportamiento más allá de la ejecución de la aplicación. A continuación se muestra la entidad Ponente, que posee una identificación única mediante su DNI.
-
-   <p align="center">
-      <img src="Insertar la ruta de imagen de prueba" >
+      <img src="Images/D_2.jpeg" width="20%">
        </p>
       
-*  Value Objects:
+*  En la parte de presentation, se adjuntan los controladores de cada Entidad, que especifican las rutas de los endpoints y la interfaz que se muestra al usuario:
 
-   Los Value Objects (VO) son solo valores, no entidades, por si solos no significan nada, tienen que estar acompañados de una entidad para que signifiquen algo o ser interpretados. 
-   En nuestro sistema identificamos algunos Value Objects, como el siguiente: 
-    
-    <p align="center">
-       <img src="Insertar la ruta de imagen de prueba" >
+      <p align="center">
+       <img src="Images/D_3.jpeg" width="20%">
       </p>
-   La clase SesionEvento si bien aparece como un Entity en realidad solo es un dato que conecta la relacion N-M de las entidades Sesión y Evento y almacena el dato de la hora de Inicio. Sin estas otras entidades perdería sentido por sí misma. Es un Value Object.
- 
-*  Ubiquitous Language: 
-
-   Es un concepto de gran importancia porque, además de servir de vehículo de entendimiento en el negocio y entre el negocio e IT, también sirve para identificar las particiones del Domain, que darán lugar a soluciones modulares
-
-   <p align="center">
-  <img src="Insertar la ruta de imagen de prueba" >
-    <img src="Insertar la ruta de imagen de prueba" >
-      </p>
-
-*  Aggregates: 
-   Los agregados representan el límite lógico de un conjunto de datos, permiten modelar el sistema en pequeños subconjuntos. Para acceder a los elementos de un agregado debemos  acceder mediante una entidad principal, que le sirve a modo de entrada. 
-
-   Existe un agregado “Sesión” ya que esta entidad posee relaciones con otras a nivel de negocio y su acceso es mediante la entidad Programa.
-    
-    <p align="center">
-  <img src="Insertar la ruta de imagen de prueba" >
-      <img src="Insertar la ruta de imagen de prueba">
-      </p>
-
-* Repository:
- 
-  En nuestro proyecto tenemos clases, o más famosamente llamados controladores (MVC), que tienen la función de repositorio, ya que, son los que controlan, dirigen, a la aplicación   por dónde debe ir dependiendo de lo que el usuario requiera al interactuar con dicha aplicación.
-
-     <p align="center">
-       <img src="Insertar la ruta de imagen de prueba" >
-     </p>
-
-  Un claro ejemplo sería en controlador de Sesión, que guarda diferentes funciones en donde consultamos dichos datos a la base de datos para que luego sean mostrados al usuario.
+  
