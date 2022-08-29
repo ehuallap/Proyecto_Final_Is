@@ -592,6 +592,7 @@ class Participant_repository(DbConnection.Model, Participant):
         return True
  ```
 Por otro lado, el modelo de Participant solamente almacena los datos para su posterior modificación, por lo que queda aislado de la conexión a la base de datos. A continuación se presenta el código:
+
 ```python
 # Creacion de la clase Participante
 class Participant(Registered_person):
@@ -616,6 +617,34 @@ class Participant(Registered_person):
     # Metodo para obtener el ciclo de la persona (ENCAPSULAMIENTO)
     def setCiclo(self, ciclo):
         self.ciclo = ciclo
+```
+* Open-Closed :
+Se utilizan Blueprints para construir los endpoints progresivamente, estos endpoints pueden extenderse pero no modificar a los que ya existen. A continuación se presenta el código de ParticipantController:
+
+```python
+participant_blueprint = Blueprint('participant_blueprint', name)
+participant = Participant_repository()
+
+@participant_blueprint.route('/participant', methods=['POST'])
+@cross_origin()
+def create_participant():
+    if not request.json:
+        abort(400)
+    participant = Participant_repository(request.json['id'], request.json['name'], request.json['email'], request.json['password'], request.json['universidad'], request.json['ciclo'])
+    participant.insert()
+    return jsonify(participant)
+
+@participant_blueprint.route('/participant', methods=['GET'])
+@cross_origin()
+def get_participants():
+    participants = participant.get_all()
+    return jsonify(participants)
+
+@participant_blueprint.route('/participant/<int:id>', methods=['GET'])
+@cross_origin()
+def get_participant(id):
+    participant = participant.get(id)
+    return jsonify(participant)
 ```
 
    El principio de responsabilidad única busca que el código quede encapsulado y exista independencia entre las clases, sus funcionalidades. Al utilizar clases hemos procurado   cumplir con este criterio, ya que encapsulamos la funcionalidad de cada una para que realicen una única función. 
