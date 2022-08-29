@@ -263,7 +263,7 @@ El sistema está diseñado de forma que pueda llamar las funciones secuencialmen
 * Kingdom of Nouns Style: se crean clases para acceder a los atributos de las clases
   Esta sección muestra como se crean clases para acceder a los atributos de las clases. 
 
-*Persistent Tables Style:
+* Persistent Tables Style:
    Este Estilo esta dedicado a la información que se almacenan en bases de datos para mantener persistencia sobre los mismos.
 
 
