@@ -256,7 +256,33 @@ class LoginController extends Controller
 ## Estilos de Programación aplicados
 * Pipeline Style: 
 Esta enfocado en funciones que tienen un input y un output
+```python
+class Administrator_repository(DbConnection.Model, Administrator):
+    tablename = 'administrator'
+    id = DbConnection.Column(DbConnection.Integer, primary_key=True)
 
+    def init(self, id=0, name="", email="", password=""):
+        Administrator.init(self, id, name, email, password)
+
+    def insert(self):
+        try:
+            DbConnection.session.add(self)
+            DbConnection.session.commit()
+        except Exception as e:
+            print(e)
+            DbConnection.session.rollback()
+            return False
+        return True
+
+    def update(self):
+        try:
+            DbConnection.session.commit()
+        except Exception as e:
+            print(e)
+            DbConnection.session.rollback()
+            return False
+        return True
+```
 * 	Cookbook Style: 
 El sistema está diseñado de forma que pueda llamar las funciones secuencialmente.
  
@@ -266,6 +292,11 @@ El sistema está diseñado de forma que pueda llamar las funciones secuencialmen
 * Persistent Tables Style:
    Este Estilo esta dedicado a la información que se almacenan en bases de datos para mantener persistencia sobre los mismos.
 
+## Practicas/Estandares/Convenciones
+* Comentarios autoexplicativos: 
+   Se comentan las líneas de código importante para entender el funcionamiento.
+* Indentación consistente:
+   Se respeta los espacios de indentación y se ordena para un facil entendimiento del usuario
 
 ## Principios SOLID aplicados
 * Single-responsability : 
