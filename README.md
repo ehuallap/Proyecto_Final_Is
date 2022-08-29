@@ -424,8 +424,46 @@ def get_participant(id):
     participant = participant.get(id)
     return jsonify(participant)
 ```
-* Liskov-Sutitution
+* Liskov-Sutitution:
+  En el proyecto, se utiliza herencia para las clases de Participant, Speaker y Administrator para que pueda cumplir la mismas funciones de mostrar y cambiar datos, de la clase Padre RegisteredPerson.
+```python
+# Creacion de la clase RegistredPerson
+class Registered_person:
+    # Constructor de la clase
+    def init(self, id, name, email, password):
+        self.id = id
+        self.name = name
+        self.email = email
+        self.password = password
 
+    # Metodo para obtener el id de la persona (ENCAPSULAMIENTO)
+    def getId(self):
+        return self.id
+
+    # Metodo para obtener el nombre de la persona (ENCAPSULAMIENTO)
+    def getName(self):
+        return self.name
+
+    # Metodo para obtener el email de la persona (ENCAPSULAMIENTO)
+    def getEmail(self):
+        return self.email
+
+    # Metodo para obtener la contraseña de la persona (ENCAPSULAMIENTO)
+    def getPassword(self):
+        return self.password
+
+    # Metodo para asignar el id de la persona (ENCAPSULAMIENTO)
+    def setId(self, id):
+        self.id = id
+Donde su clase hija es:
+# Creacion de la clase Participante
+class Participant(Registered_person):
+    # Constructor de la clase
+    def init(self, id, name, email, password, universidad, ciclo):
+        Registered_person.init(self, id, name, email, password)
+        self.universidad = universidad
+        self.ciclo = ciclo
+```
 ## Conceptos DDD aplicados
 * Modules:
  
