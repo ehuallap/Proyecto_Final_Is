@@ -469,18 +469,18 @@ La estructura DDD se puede ver reflejado en la distribución de las carpetas y e
 * En la parte de Domain, estamos declarando las clases que servirán como modelos para los metodos de get, set y format:
  
    <p align="center">
-    <img src="Images/D_1.jpeg" width="20%">
+    <img src="Images/D_1.jpeg" width="25%">
   </p>
 
 * En la parte de infraestructura se crea el esquema de la base de datos y las conexiones de cada Entidad a la base de datos: 
 
    <p align="center">
-      <img src="Images/D_2.jpeg" width="20%">
+      <img src="Images/D_2.jpeg" width="25%">
        </p>
       
 *  En la parte de presentation, se adjuntan los controladores de cada Entidad, que especifican las rutas de los endpoints y la interfaz que se muestra al usuario:
 
       <p align="center">
-       <img src="Images/D_3.jpeg" width="20%">
+       <img src="Images/D_3.jpeg" width="25%">
       </p>
   
