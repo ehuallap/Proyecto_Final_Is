@@ -8,29 +8,14 @@ Este sistema será utilizado por personal de la Escuela de Ciencia de la Computa
 En el presente proyecto usamos HTML, CSS , Bootstrap; el gestor de Base de Datos se uso MySQL y SQLAlchemy, para la conexion de la Base de Datos y el frontend se usó Python (Flask) y Path (libreria incluida en Python que se utilizo para especificar las rutas y carpetas consultadas en todo el proyecto). 
 
 ## Funcionalidades
-- Mostrar resumen general: El sistema debe mostrar información general sobre eventos de la Semana de la Computación, tambien se especificaran ponencias, los eventos mejor puntuados y acerca de la escuela profesional de Ciencia de la computación.
+- Mostrar resumen general: El sistema debe mostrar información general sobre eventos de la Semana de la Computación, así como también algunos ponentes.
 
 - Inicio de sesión de usuario: los usuarios deberán identificarse para poder inscribirse a los concursos organizados por la escuela.
-   <p align="center">
-    <img src="Insertar la ruta de imagen de prueba">
-  </p>
+   
 - Registrar usuario: El sistema debe permitir al usuario registrarse. El sistema pedirá al usuario ingresar su correo electrónico institucional (si es que es estudiante de la UNSA) o personal (si es un usuario no relacionado con la UNSA) y contraseña.
-   <p align="center">
-    <img src="Insertar la ruta de imagen de prueba">
-  </p>
-- Mostrar ediciones de la semana de la computación: El sistema lista los años en los que se realizó la Semana de la computación.
-    <p align="center">
-    <img src="Insertar la ruta de imagen de prueba">
-  </p>
-- Mostrar cronograma de eventos por edición: El sistema muestra al usuario el cronograma de la edición elegida. No es necesario que se inicie sesión para tener acceso a la vista. Desde el cronograma el usuario puede seleccionar un evento.
-   <p align="center">
-    <img src="Insertar la ruta de imagen de prueba" >
-  <img src="Insertar la ruta de imagen de prueba" >
-  </p>
+   
 - Visualizar evento: El sistema permite a los usuarios en general tener acceso a los eventos. No es necesario que se inicie sesión.
   - Mostrar información general: Se muestra el título, información del ponente, tema, fecha, hora, lugar o link del evento.
-  - Puntuar evento:  El usuario podrá dar una puntuación a los evento de acuerdo a su nivel de satisfacción. 
-  - Visualizar material adjunto: El usuario puede visualizar las presentaciones se han adjuntado junto con el evento
   <p align="center">
     <img src="Insertar la ruta de imagen de prueba">
   </p>
