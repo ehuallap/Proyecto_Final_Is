@@ -5,7 +5,7 @@ Este sistema será utilizado por personal de la Escuela de Ciencia de la Computa
 
 
 ## Tecnologias usadas
-En el presente proyecto usamos HTML, CSS ; el gestor de Base de Datos se uso MySQL , para la conexion de la Base de Datos y el frontend se usó PHP 
+En el presente proyecto usamos HTML, CSS , Bootstrap; el gestor de Base de Datos se uso MySQL y SQLAlchemy, para la conexion de la Base de Datos y el frontend se usó Python (Flask) y Path (libreria incluida en Python que se utilizo para especificar las rutas y carpetas consultadas en todo el proyecto). 
 
 ## Funcionalidades
 - Mostrar resumen general: El sistema debe mostrar información general sobre eventos de la Semana de la Computación, tambien se especificaran ponencias, los eventos mejor puntuados y acerca de la escuela profesional de Ciencia de la computación.
@@ -49,7 +49,7 @@ En el presente proyecto usamos HTML, CSS ; el gestor de Base de Datos se uso MyS
 - Registrar inscripciones para concursos: El sistema permite a un usuario inscribirse en un concurso. Para ello se requiere que se haya iniciado sesión.
 - Buscar por filtro: El sistema permite al usuario buscar un evento por título o etiquetas.
 
-## Práctica de código legible aplicadas
+## Prácticas/estándares/convenciones de programación
 
 * No colocar JS ni CSS en las plantillas Blade y no coloques HTML en clases de PHP
 * Convención de Laravel para los nombres, organización de archivos y carpetas:
