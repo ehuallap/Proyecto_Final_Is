@@ -254,8 +254,8 @@ class LoginController extends Controller
    Es menos cansado leer 5 filas de amplitud corta que un largo texto a ras de hoja, por ello es una buena prática evitar escribir líneas largas y horizontales.
 
 ## Estilos de Programación aplicados
-* Programacion Orientada a Objetos: 
-El estilo de programación utilizado fue siguiendo el paradigma orientado a objetos, basándonos en el concepto de clases y objetos. Este tipo de programación se utiliza para estructurar un programa de software en piezas simples y reutilizables de planos de código (clases) para crear instancias individuales de objetos. 
+* Pipeline Style: 
+Esta enfocado en funciones que tienen un input y un output
 
 * 	Código mantenible: 
 El sistema está diseñado de forma que pueda ser actualizado cada cierto tiempo, con independencia entre sus funciones y clases, logrando así el programa perdure.
