@@ -526,57 +526,98 @@ def insert(self):
             return False
         return True
 ```
+* Organización y correcto nombramiento de las carpetas
+Se distribuyen las carpetas y archivos dentro de la estructura DDD (Domain Driven Design)
+IMAGENNNNNN
+
+* Nombres significativos, se utilizan variables con nombres significativos
+```python
+# Creacion de la clase Participante
+class Participant(Registered_person):
+    # Constructor de la clase
+    def init(self, id, name, email, password, universidad, ciclo):
+        super().init(self, id, name, email, password)
+        self.universidad = universidad
+        self.ciclo = ciclo
+
+    # Metodo para obtener la universidad de la persona (ENCAPSULAMIENTO)
+    def getUniversidad(self):
+        return self.universidad
+
+    # Metodo para obtenter el ciclo de la persona (ENCAPSULAMIENTO)
+    def getCiclo(self):
+        return self.ciclo
+
+    # Metodo para asignar la universidad de la persona (ENCAPSULAMIENTO)
+    def setUniversidad(self, universidad):
+        self.universidad = universidad
+
+    # Metodo para obtener el ciclo de la persona (ENCAPSULAMIENTO)
+    def setCiclo(self, ciclo):
+        self.ciclo = ciclo
+
+    def format(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'password': self.password,
+            'universidad': self.universidad,
+            'ciclo': self.ciclo
+        }
+```
 ## Principios SOLID aplicados
 * Single-responsability : 
   El principio de responsabilidad única ( SRP ) es un principio de programación de computadoras que establece que cada módulo , clase o función en un programa de computadora debe   tener responsabilidad sobre una sola parte de la funcionalidad de ese programa , y debe encapsular esa parte. Todo eso de la función módulo, clase o servicios deben estar alineados estrechamente con esa responsabilidad.
-  - Si una Clase tiene muchas responsabilidades, aumenta la posibilidad de errores porque hacer cambios en una de sus responsabilidades podría afectar a las otras sin que usted     lo sepa.
-  -  "Una clase debe tener solo una razón para cambiar"
-  Se eligió esta clase porque cumple con las características de este, es decir, la Clase User se encarga únicamente de recopilar la información de una persona como nombre, email,  password.
+  
+Se utilizan diversas clases que cumplen con diferentes funciones específicas cada una, por ejemplo en el siguiente código se presenta la clase ParticipantController que realiza los cambios en la base de datos:
+```python
+class Participant_repository(DbConnection.Model, Participant):
+    tablename = 'participant'
+    id = DbConnection.Column(DbConnection.Integer, primary_key=True)
+    universidad = DbConnection.Column(DbConnection.String(50), nullable=False)
+    ciclo = DbConnection.Column(DbConnection.Integer, nullable=False)
 
- 
- ```php
-<?php
+    def init(self, id=0, name="", email="", password="", universidad="", ciclo=0):
+        Participant.init(self, id, name, email, password, universidad, ciclo)
 
-namespace App\Models;
+    def insert(self):
+        try:
+            DbConnection.session.add(self)
+            DbConnection.session.commit()
+        except Exception as e:
+            print(e)
+            DbConnection.session.rollback()
+            return False
+        return True
+ ```
+Por otro lado, el modelo de Participant solamente almacena los datos para su posterior modificación, por lo que queda aislado de la conexión a la base de datos. A continuación se presenta el código:
+```python
+# Creacion de la clase Participante
+class Participant(Registered_person):
+    # Constructor de la clase
+    def init(self, id, name, email, password, universidad, ciclo):
+        super().init(self, id, name, email, password)
+        self.universidad = universidad
+        self.ciclo = ciclo
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+    # Metodo para obtener la universidad de la persona (ENCAPSULAMIENTO)
+    def getUniversidad(self):
+        return self.universidad
 
-class User extends Authenticatable
-{
-    use HasFactory, Notifiable;
+    # Metodo para obtenter el ciclo de la persona (ENCAPSULAMIENTO)
+    def getCiclo(self):
+        return self.ciclo
 
-    protected $table = 'persona';
-    public $timestamps = false;
-    protected $primaryKey = 'dni';
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [
-        'nombre',
-        'email',
-        'password',
-    ];
+    # Metodo para asignar la universidad de la persona (ENCAPSULAMIENTO)
+    def setUniversidad(self, universidad):
+        self.universidad = universidad
 
-    /**
-     * The attributes that should be hidden for arrays.
-     */
-    protected $hidden = [
-        'password',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-}
-
-
+    # Metodo para obtener el ciclo de la persona (ENCAPSULAMIENTO)
+    def setCiclo(self, ciclo):
+        self.ciclo = ciclo
 ```
+
    El principio de responsabilidad única busca que el código quede encapsulado y exista independencia entre las clases, sus funcionalidades. Al utilizar clases hemos procurado   cumplir con este criterio, ya que encapsulamos la funcionalidad de cada una para que realicen una única función. 
 
    <p align="center">
